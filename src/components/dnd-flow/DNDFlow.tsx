@@ -122,6 +122,7 @@ export default function DNDFlow() {
           if (appContextValue.selectedNode)
             node.data = {
               ...node.data,
+              // @ts-ignore
               label: appContextValue.selectedNode.data?.label,
             };
         }
