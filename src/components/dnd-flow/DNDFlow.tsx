@@ -108,11 +108,13 @@ export default function DNDFlow() {
     [numOfNodes, reactFlowInstance]
   );
 
+  // @ts-ignore
   const handleNodeClick = (_event: React.MouseEvent, node: Node) => {
     appContextValue.setSettingsPanelOpen(true);
-    appContextValue.setSelectedNode(node);
+    appContextValue.setSelectedNode(node );
   };
   
+  // @ts-ignore
   useEffect(() => {
     setNodes((nds) =>
       nds.map((node) => {
@@ -129,8 +131,8 @@ export default function DNDFlow() {
   }, [appContextValue.selectedNode, setNodes]);
 
   return (
-    <div className="dnd-flow">
-        <div className="reactflow-wrapper">
+    <div className="dnd-flow" ref={drop}>
+        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlowProvider>
             <ReactFlow
             nodes={nodes}
