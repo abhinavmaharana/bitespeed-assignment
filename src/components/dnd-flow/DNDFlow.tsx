@@ -111,18 +111,18 @@ export default function DNDFlow() {
   // @ts-ignore
   const handleNodeClick = (_event: React.MouseEvent, node: Node) => {
     appContextValue.setSettingsPanelOpen(true);
-    appContextValue.setSelectedNode(node );
+    appContextValue.setSelectedNode(node as any);
   };
   
   // @ts-ignore
   useEffect(() => {
     setNodes((nds) =>
       nds.map((node) => {
-        if (node.id === appContextValue.selectedNode?.id) {
+        if (node.id === (appContextValue.selectedNode as unknown as { id: string; data?: { label: string } } | undefined)?.id) {
           if (appContextValue.selectedNode)
             node.data = {
               ...node.data,
-              label: appContextValue.selectedNode.data.label,
+              label: appContextValue.selectedNode.data?.label,
             };
         }
         return node;
