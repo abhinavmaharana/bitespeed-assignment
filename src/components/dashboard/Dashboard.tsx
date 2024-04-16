@@ -2,6 +2,8 @@ import { AppShell, Aside, Header, MediaQuery, Text, useMantineTheme } from "@man
 import { createContext, useState } from "react";
 import SaveButton from "../save-button/SaveButton";
 import DNDFlow from "../dnd-flow/DNDFlow";
+import SettingsPanel from "../settings-panel/SettingsPanel";
+import NodesPanel from "../nodes-panel/NodesPanel";
 
 interface DashboardContext {
     settingsPanelOpen: boolean; //indicates if the settings panel is visible on sidebar
@@ -46,8 +48,7 @@ export default function Dashboard() {
                 <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
                     <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
                         {/* Application sidebar */}
-                        {/* {settingsPanelOpen ? <SettingsPanel /> : <NodesPanel />} */}
-                        <h1>Hello</h1>
+                        {settingsPanelOpen ? <SettingsPanel /> : <NodesPanel />}
                     </Aside>
                 </MediaQuery>
             }
@@ -64,7 +65,7 @@ export default function Dashboard() {
                             padding: "0 100px",
                         }}
                     >
-                        <Text p="lg"> Chatbot Flow Builder</Text>
+                        <Text p="lg"></Text>
                         <SaveButton />
                     </div>
                 </Header>

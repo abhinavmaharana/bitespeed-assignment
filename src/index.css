@@ -101,3 +101,40 @@
 .text {
   color: black;
 }
+
+.text-input textarea {
+  height: 50px;
+  width: 240px;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 4px;
+  color: rgb(0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.224);
+}
+
+.text-area {
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.draggable-text-node {
+  height: 70px;
+  width: 200px;
+  padding: 2px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.draggable-text-node .message-icon {
+  text-align: center;
+}

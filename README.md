@@ -1,30 +1,48 @@
-# React + TypeScript + Vite
+# React Flow 
+# [live demo](https://bitespeed-assignment-opal.vercel.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple React application built with [React Flow](https://reactflow.dev/) and react.js . It demonstrates the implementation of drag and drop nodes with the ability to connect them. The state of the nodes and their connections can be saved and restored.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Drag and drop nodes.
+2. Connect nodes by clicking and dragging from one node's edge to another.
+3. Clicking on a node selects it, and its label can be modified from the sidebar.
+4. Clicking anywhere on the pane deselects the selected node.
+5. Save and restore functionality, which saves the current state of the nodes and their connections, and can restore the state later.
 
-## Expanding the ESLint configuration
+## Setup and Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+First, clone the repository to your local machine:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone https://github.com/abhinavmaharana/bitespeed-assignment.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Navigate into the project directory:
+
+```bash
+cd [project-folder-name]
+```
+
+Install the project dependencies:
+
+```bash
+npm install
+```
+
+To start the project in development mode:
+
+```bash
+npm start
+```
+
+The application should now be running on http://localhost:3000.
+
+## Deployment
+
+The project can be deployed on any hosting service that supports Node.js applications. Examples of such services include Heroku, Vercel, and Netlify. Please refer to the respective platform's documentation for deploying React applications.
+
+## Support
+
+If you are having issues with the project, please let me know. i have an email, abhinavmaharana.23@gmail.com, where you can reach out to me.

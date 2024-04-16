@@ -2,6 +2,7 @@ import { Text } from "@mantine/core";
 import { useNodeId } from "reactflow";
 import { Handle, NodeProps, Position } from "reactflow";
 import { BrandWhatsapp, Message } from "tabler-icons-react";
+import CustomHandle from "../custom-handle/CustomHandle";
 
 export default function SendMessageNode({ data }: NodeProps) {
   const nodeId = useNodeId();
@@ -23,6 +24,12 @@ export default function SendMessageNode({ data }: NodeProps) {
           {data.label}
         </Text>
       </div>
+      <CustomHandle
+        id={nodeId + "b"}
+        type="source"
+        position={Position.Right}
+        isConnectable={1}
+      />
     </>
   )
 }
