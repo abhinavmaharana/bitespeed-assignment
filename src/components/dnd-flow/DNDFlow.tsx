@@ -1,22 +1,16 @@
-import {
-    useState,
-    useRef,
-    useCallback,
-    useContext,
-    useEffect,
-  } from "react";
+import { useState, useRef, useCallback, useContext, useEffect } from "react";
 import ReactFlow, {
-    ReactFlowProvider,
-    addEdge,
-    useNodesState,
-    useEdgesState,
-    Controls,
-    Edge,
-    Connection,
-    ReactFlowInstance,
-    Node,
-    MarkerType,
-    NodeTypes,
+  ReactFlowProvider,
+  addEdge,
+  useNodesState,
+  useEdgesState,
+  Controls,
+  Edge,
+  Connection,
+  ReactFlowInstance,
+  Node,
+  MarkerType,
+  NodeTypes,
 } from "reactflow";
 import { XYCoord, useDrop } from "react-dnd";
 import "reactflow/dist/style.css";
@@ -24,20 +18,20 @@ import SendMessageNode from "../send-message-node/SendMessageNode";
 import { DashboardContext } from "../dashboard/Dashboard";
 
 const initialNodes = [
-    {
-      id: "1",
-      type: "sendMessage",
-      data: { label: "default node" },
-      position: { x: 10, y: 10 },
-    },
+  {
+    id: "1",
+    type: "sendMessage",
+    data: { label: "default node" },
+    position: { x: 10, y: 10 },
+  },
 ];
 
 const nodeTypes: NodeTypes = {
-    sendMessage: SendMessageNode,
+  sendMessage: SendMessageNode,
 };
 
 export default function DNDFlow() {
-    const reactFlowWrapper = useRef<HTMLDivElement>(null);
+  const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] =
@@ -52,10 +46,10 @@ export default function DNDFlow() {
       setEdges((eds) => {
         return addEdge(
           { ...params, markerEnd: { type: MarkerType.Arrow } }, //choosing markerend as an arrow-head
-          eds
+          eds,
         );
       }),
-    [setEdges]
+    [setEdges],
   );
 
   const checkNodesConnectionStatus = (val: number): boolean => {
@@ -87,10 +81,10 @@ export default function DNDFlow() {
 
         let position: any;
         if (reactFlowInstance !== null && reactFlowBounds !== undefined) {
-            position = reactFlowInstance.project({
-              x: delta.x - reactFlowBounds.left,
-              y: delta.y - reactFlowBounds.top,
-            });
+          position = reactFlowInstance.project({
+            x: delta.x - reactFlowBounds.left,
+            y: delta.y - reactFlowBounds.top,
+          });
         }
         setNodes((prevNodes) =>
           //adding a new node of type sendMessage
@@ -100,12 +94,12 @@ export default function DNDFlow() {
             type: "sendMessage",
             data: { label: "default node " + num.toString(10) },
             draggable: true,
-          })
+          }),
         );
         setNumOfNodes((prevNum) => prevNum + 1);
       },
     }),
-    [numOfNodes, reactFlowInstance]
+    [numOfNodes, reactFlowInstance],
   );
 
   // @ts-ignore
@@ -113,12 +107,19 @@ export default function DNDFlow() {
     appContextValue.setSettingsPanelOpen(true);
     appContextValue.setSelectedNode(node as any);
   };
-  
+
   // @ts-ignore
   useEffect(() => {
     setNodes((nds) =>
       nds.map((node) => {
-        if (node.id === (appContextValue.selectedNode as unknown as { id: string; data?: { label: string } } | undefined)?.id) {
+        if (
+          node.id ===
+          (
+            appContextValue.selectedNode as unknown as
+              | { id: string; data?: { label: string } }
+              | undefined
+          )?.id
+        ) {
           if (appContextValue.selectedNode)
             node.data = {
               ...node.data,
@@ -127,15 +128,15 @@ export default function DNDFlow() {
             };
         }
         return node;
-      })
+      }),
     );
   }, [appContextValue.selectedNode, setNodes]);
 
   return (
     <div className="dnd-flow" ref={drop}>
-        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-            <ReactFlowProvider>
-            <ReactFlow
+      <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+        <ReactFlowProvider>
+          <ReactFlow
             nodes={nodes}
             nodeTypes={nodeTypes}
             edges={edges}
@@ -148,8 +149,8 @@ export default function DNDFlow() {
           >
             <Controls />
           </ReactFlow>
-            </ReactFlowProvider>
-        </div>
+        </ReactFlowProvider>
+      </div>
     </div>
-  )
+  );
 }

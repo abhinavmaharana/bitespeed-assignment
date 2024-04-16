@@ -5,8 +5,8 @@ import { ArrowLeft } from "tabler-icons-react";
 import { DashboardContext } from "../dashboard/Dashboard";
 
 export default function MessageInputSettings() {
-    const appContextValue = useContext(DashboardContext);
-    const [message, setMessage] = useState("");
+  const appContextValue = useContext(DashboardContext);
+  const [message, setMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -38,9 +38,13 @@ export default function MessageInputSettings() {
       </div>
       <hr></hr>
       <div className="text-input">
-        <textarea value={message} className="text-area" onChange={handleChange} />
+        <textarea
+          value={message}
+          className="text-area"
+          onChange={handleChange}
+        />
       </div>
       <hr></hr>
     </div>
-  )
+  );
 }

@@ -8,7 +8,7 @@ export default function SendMessageNode({ data }: NodeProps) {
   const nodeId = useNodeId();
   return (
     <>
-        <Handle
+      <Handle
         type="target"
         id={nodeId + "a"}
         position={Position.Left}
@@ -16,9 +16,13 @@ export default function SendMessageNode({ data }: NodeProps) {
       />
       <div className="send-message">
         <div className="send-message-header">
-            <Message size={15} className="text" />
-            <Text size={15} className="text">Send Message</Text>
-            <div className="brand-wrapper"><BrandWhatsapp size={10} className="text" /></div>
+          <Message size={15} className="text" />
+          <Text size={15} className="text">
+            Send Message
+          </Text>
+          <div className="brand-wrapper">
+            <BrandWhatsapp size={10} className="text" />
+          </div>
         </div>
         <Text size={20} className="send-message-label text">
           {data.label}
@@ -31,5 +35,5 @@ export default function SendMessageNode({ data }: NodeProps) {
         isConnectable={1}
       />
     </>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { MantineProvider } from "@mantine/core"
+import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -12,7 +12,7 @@ function App() {
         <Dashboard />
       </DndProvider>
     </MantineProvider>
-  )
+  );
 }
 
-export default App
+export default App;
