@@ -15,9 +15,9 @@ const MessageNode: React.FC = () => {
       {/* Container for the message node */}
       <div className="message-icon">
         {/* Message icon */}
-        <Message className="text" size={30} />
+        <Message className="text-message" size={30} />
         {/* Text label */}
-        <Text className="text">Message</Text>
+        <Text className="text-message">Message</Text>
       </div>
     </div>
   );

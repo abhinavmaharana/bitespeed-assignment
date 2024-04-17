@@ -128,11 +128,16 @@
   height: 70px;
   width: 200px;
   padding: 2px;
-  border: 1px solid black;
+  border: 1px solid #9497a0;
   display: flex;
+  border-radius: 5px;
   flex-direction: row;
   justify-content: center;
   align-content: center;
+}
+
+.text-message {
+  color: #787da5;
 }
 
 .draggable-text-node .message-icon {
