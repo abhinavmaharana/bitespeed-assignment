@@ -1,16 +1,22 @@
 import { useDrag } from "react-dnd";
 import { Message } from "tabler-icons-react";
 import { Text } from "@mantine/core";
-//Message node is used on the nodes panel
+
+// MessageNode component represents a draggable message node in the nodes panel
 const MessageNode: React.FC = () => {
+  // useDrag hook to make the component draggable
   const [, drag] = useDrag(() => ({
-    type: "message",
+    type: "message", // Type of the draggable item
   }));
 
+  // Render the MessageNode component
   return (
     <div ref={drag} className="draggable-text-node">
+      {/* Container for the message node */}
       <div className="message-icon">
+        {/* Message icon */}
         <Message className="text" size={30} />
+        {/* Text label */}
         <Text className="text">Message</Text>
       </div>
     </div>

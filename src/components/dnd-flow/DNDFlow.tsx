@@ -17,58 +17,60 @@ import "reactflow/dist/style.css";
 import SendMessageNode from "../send-message-node/SendMessageNode";
 import { DashboardContext } from "../dashboard/Dashboard";
 
+// Initial nodes for the flow chart
 const initialNodes = [
   {
     id: "1",
     type: "sendMessage",
-    data: { label: "default node" },
+    data: { label: "test message 1" },
     position: { x: 10, y: 10 },
   },
 ];
 
+// Define node types used in the flow chart
 const nodeTypes: NodeTypes = {
   sendMessage: SendMessageNode,
 };
 
+// DNDFlow component for the drag and drop flow chart
 export default function DNDFlow() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes); // State for nodes
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]); // State for edges
   const [reactFlowInstance, setReactFlowInstance] =
-    useState<ReactFlowInstance | null>(null);
-  const [numOfNodes, setNumOfNodes] = useState(1);
+    useState<ReactFlowInstance | null>(null); // Instance of React Flow
+  const [numOfNodes, setNumOfNodes] = useState(1); // Number of nodes
 
-  const appContextValue = useContext(DashboardContext);
+  const appContextValue = useContext(DashboardContext); // Accessing context from Dashboard
 
-  //onConnect runs while connecting an edge to a valid connectable handle
+  // Callback function for when an edge is connected
   const onConnect = useCallback(
     (params: Edge | Connection) =>
       setEdges((eds) => {
         return addEdge(
-          { ...params, markerEnd: { type: MarkerType.Arrow } }, //choosing markerend as an arrow-head
+          { ...params, markerEnd: { type: MarkerType.Arrow } }, // Arrow marker for edges
           eds,
         );
       }),
     [setEdges],
   );
 
+  // Function to check if nodes can be connected
   const checkNodesConnectionStatus = (val: number): boolean => {
-    //val is the number of empty target handles allowed
     const nodeIds = nodes.map((node) => node.id);
-    edges.map((edge) => {
-      if (nodeIds.includes(edge.target)) {
-        const index = nodeIds.indexOf(edge.target);
-        if (index !== -1) {
-          nodeIds.splice(index, 1);
-        }
+    edges.forEach((edge) => {
+      const index = nodeIds.indexOf(edge.target);
+      if (index !== -1) {
+        nodeIds.splice(index, 1);
       }
     });
-    if (nodeIds.length > val) return false;
-    return true;
+    return nodeIds.length <= val;
   };
 
+  // Assigning the function to context value
   appContextValue.checkNodesConnectionStatus = checkNodesConnectionStatus;
 
+  // Hook to handle dropping a node onto the flow chart
   const [, drop] = useDrop(
     () => ({
       accept: "message",
@@ -86,13 +88,14 @@ export default function DNDFlow() {
             y: delta.y - reactFlowBounds.top,
           });
         }
+
+        // Adding a new node of type sendMessage
         setNodes((prevNodes) =>
-          //adding a new node of type sendMessage
           prevNodes.concat({
             id: num.toString(10),
             position,
             type: "sendMessage",
-            data: { label: "default node " + num.toString(10) },
+            data: { label: "test message " + num.toString(10) },
             draggable: true,
           }),
         );
@@ -102,13 +105,13 @@ export default function DNDFlow() {
     [numOfNodes, reactFlowInstance],
   );
 
-  // @ts-ignore
+  // Function to handle clicking on a node
   const handleNodeClick = (_event: React.MouseEvent, node: Node) => {
-    appContextValue.setSettingsPanelOpen(true);
-    appContextValue.setSelectedNode(node as any);
+    appContextValue.setSettingsPanelOpen(true); // Open settings panel
+    appContextValue.setSelectedNode(node as any); // Set selected node
   };
 
-  // @ts-ignore
+  // Update node label if selected node changes
   useEffect(() => {
     setNodes((nds) =>
       nds.map((node) => {
@@ -123,7 +126,7 @@ export default function DNDFlow() {
           if (appContextValue.selectedNode)
             node.data = {
               ...node.data,
-              // @ts-ignore
+              //@ts-ignore
               label: appContextValue.selectedNode.data?.label,
             };
         }
@@ -132,6 +135,7 @@ export default function DNDFlow() {
     );
   }, [appContextValue.selectedNode, setNodes]);
 
+  // Render the DNDFlow component
   return (
     <div className="dnd-flow" ref={drop}>
       <div className="reactflow-wrapper" ref={reactFlowWrapper}>
@@ -144,8 +148,8 @@ export default function DNDFlow() {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onInit={setReactFlowInstance}
-            onNodeClick={handleNodeClick} //Displays settings panel on clicking a node
-            onPaneClick={() => appContextValue.setSettingsPanelOpen(false)}
+            onNodeClick={handleNodeClick} // Display settings panel on node click
+            onPaneClick={() => appContextValue.setSettingsPanelOpen(false)} // Close settings panel on pane click
           >
             <Controls />
           </ReactFlow>
